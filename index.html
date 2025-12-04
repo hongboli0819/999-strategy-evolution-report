@@ -539,27 +539,237 @@
             .insights-grid {
                 grid-template-columns: 1fr;
             }
+            .nav-tabs {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
+            html {
+                overflow-x: hidden;
+            }
+            body {
+                overflow-x: hidden;
+            }
+            .header {
+                padding: 40px 16px;
+            }
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+            }
+            .header-subtitle {
+                font-size: 0.95rem;
+            }
+            .header-meta {
+                flex-wrap: wrap;
+                gap: 12px;
+                font-size: 0.8rem;
+            }
+            .main-content {
+                padding: 20px 0;
+            }
+            .executive-summary,
+            .section,
+            .data-source {
+                border-radius: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .executive-summary {
+                padding: 24px 16px;
+                margin-bottom: 20px;
             }
             .summary-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 0 16px;
             }
-            .nav-container {
-                flex-wrap: wrap;
+            .summary-card {
+                padding: 16px;
+            }
+            .section-body {
+                padding: 20px 16px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .section-header {
+                padding: 16px;
+            }
+            .section-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .section-title-group h2 {
+                font-size: 1.1rem;
+            }
+            .section-title-group p {
+                font-size: 0.8rem;
             }
             .timeline {
                 flex-direction: column;
-                gap: 24px;
+                gap: 16px;
             }
             .timeline::before {
                 display: none;
             }
             .source-grid {
                 grid-template-columns: 1fr;
+                padding: 0;
+            }
+            .data-source {
+                padding: 16px;
+                margin: 0 0 20px 0;
+            }
+            .insights-grid {
+                gap: 12px;
+            }
+            .insight-card {
+                padding: 16px;
+            }
+            /* 表格横向滚动 */
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 -16px;
+                padding: 0 16px;
+            }
+            .comparison-table {
+                min-width: 700px;
+            }
+            .kpi-table {
+                min-width: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .summary-title {
+                font-size: 1.2rem;
+            }
+            .summary-card-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Mobile Menu Button & Panel */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1000;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+        }
+
+        .mobile-nav-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: var(--bg-white);
+            z-index: 1002;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .mobile-nav-panel.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--primary);
+            color: white;
+        }
+
+        .mobile-nav-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .mobile-nav-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-list {
+            padding: 16px;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 14px 16px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: rgba(26, 54, 93, 0.08);
+            color: var(--primary);
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn,
+            .mobile-nav-overlay,
+            .mobile-nav-panel {
+                display: block;
             }
         }
 
@@ -575,6 +785,26 @@
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">📑 目录</button>
+    
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    
+    <!-- Mobile Nav Panel -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+        <div class="mobile-nav-header">
+            <h3>📑 报告目录</h3>
+            <button class="mobile-nav-close" id="mobileNavClose">×</button>
+        </div>
+        <div class="mobile-nav-list">
+            <a href="#o2o" class="mobile-nav-link">🌐 O2O战略对比分析</a>
+            <a href="#region" class="mobile-nav-link">📍 区域优先级对比分析</a>
+            <a href="#product" class="mobile-nav-link">💊 产品策略对比分析</a>
+            <a href="#kpi" class="mobile-nav-link">📈 KPI设定对比分析</a>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -1151,6 +1381,53 @@
                 if (tab.getAttribute('href') === '#' + current) {
                     tab.classList.add('active');
                 }
+            });
+        });
+
+        // Mobile Navigation
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const mobileNavPanel = document.getElementById('mobileNavPanel');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+
+        function openMobileNav() {
+            mobileNavOverlay.classList.add('active');
+            mobileNavPanel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileNav() {
+            mobileNavOverlay.classList.remove('active');
+            mobileNavPanel.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', openMobileNav);
+        }
+
+        if (mobileNavClose) {
+            mobileNavClose.addEventListener('click', closeMobileNav);
+        }
+
+        if (mobileNavOverlay) {
+            mobileNavOverlay.addEventListener('click', closeMobileNav);
+        }
+
+        // Mobile nav links - close panel and scroll
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                closeMobileNav();
+                
+                setTimeout(() => {
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
             });
         });
     </script>
