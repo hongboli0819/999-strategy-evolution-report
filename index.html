@@ -651,8 +651,60 @@
         
         .table-scroll-wrapper .comparison-table,
         .table-scroll-wrapper .kpi-table {
-            min-width: 650px;
-            width: max-content;
+            min-width: 580px;
+        }
+        
+        /* 移动端表格优化 */
+        @media (max-width: 768px) {
+            .table-scroll-wrapper .comparison-table {
+                font-size: 12px;
+            }
+            
+            .table-scroll-wrapper .comparison-table thead th {
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+            
+            .table-scroll-wrapper .comparison-table tbody td {
+                padding: 10px 8px;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+            
+            /* 第一列紧凑 */
+            .table-scroll-wrapper .comparison-table thead th:first-child,
+            .table-scroll-wrapper .comparison-table tbody td:first-child {
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
+            }
+            
+            /* 最后一列（关键变化）紧凑 */
+            .table-scroll-wrapper .comparison-table thead th:last-child,
+            .table-scroll-wrapper .comparison-table tbody td:last-child {
+                width: 100px !important;
+                min-width: 100px !important;
+                max-width: 100px !important;
+            }
+            
+            .table-scroll-wrapper .kpi-table {
+                font-size: 12px;
+            }
+            
+            .table-scroll-wrapper .kpi-table th,
+            .table-scroll-wrapper .kpi-table td {
+                padding: 8px 6px;
+                font-size: 12px;
+            }
+            
+            .change-tag {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+            
+            .citation {
+                font-size: 10px;
+            }
         }
 
         /* Mobile Menu Button & Panel */
