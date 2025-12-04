@@ -589,8 +589,6 @@
             }
             .section-body {
                 padding: 20px 16px;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
             }
             .section-header {
                 padding: 16px;
@@ -627,19 +625,6 @@
             .insight-card {
                 padding: 16px;
             }
-            /* 表格横向滚动 */
-            .table-wrapper {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                margin: 0 -16px;
-                padding: 0 16px;
-            }
-            .comparison-table {
-                min-width: 700px;
-            }
-            .kpi-table {
-                min-width: 500px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -656,13 +641,27 @@
             }
         }
 
+        /* 表格滚动容器 - 全局定义 */
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }
+        
+        .table-scroll-wrapper .comparison-table,
+        .table-scroll-wrapper .kpi-table {
+            min-width: 650px;
+            width: max-content;
+        }
+
         /* Mobile Menu Button & Panel */
         .mobile-menu-btn {
             display: none;
             position: fixed;
             top: 16px;
             right: 16px;
-            z-index: 1000;
+            z-index: 9999;
             background: var(--primary);
             color: white;
             border: none;
@@ -671,48 +670,49 @@
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .mobile-menu-btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
+        .mobile-menu-btn:active {
+            transform: scale(0.95);
         }
 
         .mobile-nav-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.5);
-            z-index: 1001;
+            z-index: 10000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .mobile-nav-overlay.active {
             opacity: 1;
+            visibility: visible;
         }
 
         .mobile-nav-panel {
-            display: none;
             position: fixed;
             top: 0;
-            right: -300px;
+            right: 0;
             width: 280px;
             height: 100%;
             background: var(--bg-white);
-            z-index: 1002;
+            z-index: 10001;
             box-shadow: -4px 0 24px rgba(0,0,0,0.15);
-            transition: right 0.3s ease;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
             overflow-y: auto;
         }
 
         .mobile-nav-panel.active {
-            right: 0;
+            transform: translateX(0);
         }
 
         .mobile-nav-header {
@@ -766,9 +766,7 @@
         }
 
         @media (max-width: 1024px) {
-            .mobile-menu-btn,
-            .mobile-nav-overlay,
-            .mobile-nav-panel {
+            .mobile-menu-btn {
                 display: block;
             }
         }
@@ -1345,6 +1343,21 @@
     </footer>
 
     <script>
+        // 动态给表格包装滚动容器（移动端表格横向滚动）
+        document.addEventListener('DOMContentLoaded', function() {
+            // 给所有 comparison-table 和 kpi-table 包装滚动容器
+            const tables = document.querySelectorAll('.comparison-table, .kpi-table');
+            tables.forEach(function(table) {
+                // 检查是否已经被包装
+                if (!table.parentElement.classList.contains('table-scroll-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-scroll-wrapper';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
+            });
+        });
+
         // Smooth scroll for navigation
         document.querySelectorAll('.nav-tab').forEach(tab => {
             tab.addEventListener('click', function(e) {
@@ -1385,51 +1398,62 @@
         });
 
         // Mobile Navigation
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
-        const mobileNavPanel = document.getElementById('mobileNavPanel');
-        const mobileNavClose = document.getElementById('mobileNavClose');
+        (function() {
+            function initMobileNav() {
+                var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                var mobileNavOverlay = document.getElementById('mobileNavOverlay');
+                var mobileNavPanel = document.getElementById('mobileNavPanel');
+                var mobileNavClose = document.getElementById('mobileNavClose');
 
-        function openMobileNav() {
-            mobileNavOverlay.classList.add('active');
-            mobileNavPanel.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+                if (!mobileMenuBtn) return;
 
-        function closeMobileNav() {
-            mobileNavOverlay.classList.remove('active');
-            mobileNavPanel.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+                mobileMenuBtn.onclick = function(e) {
+                    e.preventDefault();
+                    mobileNavOverlay.classList.add('active');
+                    mobileNavPanel.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                };
 
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', openMobileNav);
-        }
+                mobileNavClose.onclick = function(e) {
+                    e.preventDefault();
+                    mobileNavOverlay.classList.remove('active');
+                    mobileNavPanel.classList.remove('active');
+                    document.body.style.overflow = '';
+                };
 
-        if (mobileNavClose) {
-            mobileNavClose.addEventListener('click', closeMobileNav);
-        }
+                mobileNavOverlay.onclick = function() {
+                    mobileNavOverlay.classList.remove('active');
+                    mobileNavPanel.classList.remove('active');
+                    document.body.style.overflow = '';
+                };
 
-        if (mobileNavOverlay) {
-            mobileNavOverlay.addEventListener('click', closeMobileNav);
-        }
+                // Mobile nav links
+                var navLinks = document.querySelectorAll('.mobile-nav-link');
+                for (var i = 0; i < navLinks.length; i++) {
+                    navLinks[i].onclick = function(e) {
+                        e.preventDefault();
+                        var targetId = this.getAttribute('href');
+                        var targetElement = document.querySelector(targetId);
+                        
+                        mobileNavOverlay.classList.remove('active');
+                        mobileNavPanel.classList.remove('active');
+                        document.body.style.overflow = '';
+                        
+                        if (targetElement) {
+                            setTimeout(function() {
+                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 300);
+                        }
+                    };
+                }
+            }
 
-        // Mobile nav links - close panel and scroll
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                closeMobileNav();
-                
-                setTimeout(() => {
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 300);
-            });
-        });
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileNav);
+            } else {
+                initMobileNav();
+            }
+        })();
     </script>
 </body>
 </html>
