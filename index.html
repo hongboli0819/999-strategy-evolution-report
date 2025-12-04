@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华润三九药店终端策略演变分析报告（2022 vs 2025）</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #c53030;
+            --accent-light: #e53e3e;
+            --gold: #d69e2e;
+            --gold-light: #ecc94b;
+            --bg-cream: #faf8f5;
+            --bg-white: #ffffff;
+            --text-dark: #1a202c;
+            --text-medium: #4a5568;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: rgba(26, 54, 93, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: translate(100px, -100px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 32px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .header-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-tab {
+            padding: 16px 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tab:hover {
+            color: var(--primary);
+            background: rgba(26, 54, 93, 0.05);
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 24px var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .summary-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-white) 100%);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .summary-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .summary-card:nth-child(1) .summary-card-icon { background: rgba(197, 48, 48, 0.1); color: var(--accent); }
+        .summary-card:nth-child(2) .summary-card-icon { background: rgba(26, 54, 93, 0.1); color: var(--primary); }
+        .summary-card:nth-child(3) .summary-card-icon { background: rgba(214, 158, 46, 0.1); color: var(--gold); }
+        .summary-card:nth-child(4) .summary-card-icon { background: rgba(56, 161, 105, 0.1); color: #38a169; }
+
+        .summary-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .summary-card p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        /* Section */
+        .section {
+            background: var(--bg-white);
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 24px var(--shadow);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-number {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .section-title-group h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .section-title-group p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .section-body {
+            padding: 32px;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 24px 0;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table thead th {
+            background: var(--primary);
+            color: white;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table thead th:first-child {
+            border-radius: 8px 0 0 0;
+            width: 15%;
+        }
+
+        .comparison-table thead th:last-child {
+            border-radius: 0 8px 0 0;
+            width: 20%;
+        }
+
+        .comparison-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: rgba(26, 54, 93, 0.03);
+        }
+
+        .comparison-table tbody td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .comparison-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(26, 54, 93, 0.03);
+        }
+
+        .comparison-table tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 8px;
+        }
+
+        .comparison-table tbody tr:last-child td:last-child {
+            border-radius: 0 0 8px 0;
+        }
+
+        .change-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Citation */
+        .citation {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        /* Key Insights */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-white) 100%);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .insight-year {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .insight-card h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .insight-card p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        /* Data Source */
+        .data-source {
+            background: rgba(26, 54, 93, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .data-source h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .source-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .source-card {
+            background: var(--bg-white);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .source-card h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .source-card p {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        /* KPI Table */
+        .kpi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.85rem;
+        }
+
+        .kpi-table th {
+            background: var(--bg-cream);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .kpi-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .kpi-table .kpi-category {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .kpi-target {
+            display: inline-block;
+            background: rgba(56, 161, 105, 0.1);
+            color: #38a169;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Milestone Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 32px 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 60px;
+            right: 60px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            text-align: center;
+            position: relative;
+            flex: 1;
+        }
+
+        .timeline-dot {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-white);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(1) .timeline-dot { border-color: var(--accent); color: var(--accent); }
+        .timeline-item:nth-child(2) .timeline-dot { border-color: var(--gold); color: var(--gold); }
+        .timeline-item:nth-child(3) .timeline-dot { border-color: #38a169; color: #38a169; }
+
+        .timeline-content h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        .timeline-content li {
+            margin-bottom: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            .timeline {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .timeline::before {
+                display: none;
+            }
+            .source-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-tabs {
+                display: none;
+            }
+            .section {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>华润三九药店终端策略演变分析报告</h1>
+            <p class="header-subtitle">基于2022年益普索研究与2025年七城EIS调研的四维度对比分析</p>
+            <div class="header-meta">
+                <span>📅 报告日期：2025年12月</span>
+                <span>📊 研究范围：4城市→7城市</span>
+                <span>📈 时间跨度：2022年6月 vs 2025年4-5月</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-container">
+            <a href="#o2o" class="nav-tab active">🌐 O2O战略</a>
+            <a href="#region" class="nav-tab">📍 区域优先级</a>
+            <a href="#product" class="nav-tab">💊 产品策略</a>
+            <a href="#kpi" class="nav-tab">📈 KPI设定</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Data Source -->
+        <div class="data-source">
+            <h3>📚 数据来源说明</h3>
+            <div class="source-grid">
+                <div class="source-card">
+                    <h4>2022年研究</h4>
+                    <p><strong>益普索《疫情下到店购药行为研究》</strong><br>
+                    2022年6月执行，覆盖成都、南京、南宁、西安4城市12家药店，与2018年数据对比</p>
+                </div>
+                <div class="source-card">
+                    <h4>2025年研究</h4>
+                    <p><strong>华润三九EIS调研项目</strong><br>
+                    2025年4-5月执行，包含锦州、苏州、青岛、南充、洛阳、厦门、兰州7城市驻店调研</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: O2O Strategy -->
+        <section id="o2o" class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div class="section-title-group">
+                    <h2>O2O战略对比分析</h2>
+                    <p>渠道策略演变：从"分流威胁"到"主战场"</p>
+                </div>
+            </div>
+            <div class="section-body">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>分析维度</th>
+                            <th>2022年（益普索研究）</th>
+                            <th>2025年（七城EIS调研）</th>
+                            <th>关键变化</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>对O2O渠道的定位</td>
+                            <td>
+                                视为"分流威胁"——O2O与线下药店形成竞争关系，是导致到店客流下降约1/3的原因之一
+                                <div class="citation">[益普索报告, 第8页]</div>
+                            </td>
+                            <td>
+                                视为"主战场"——线上已由"补充渠道"转为"主战场"，锦州样本显示O2O订单约300单/日，远超线下到店客流70-80人/日
+                                <div class="citation">[0526锦州EIS终, 第17页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"渠道威胁"转向"渠道主场"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>核心挑战判断</td>
+                            <td>
+                                客流危机：到店顾客数量从每日每店36人降至24人，降幅约1/3
+                                <div class="citation">[益普索报告, 第8页]</div>
+                            </td>
+                            <td>
+                                结构性转移：线下客流持续向O2O迁移，下沉市场老年消费者也已普遍线上比价与自提
+                                <div class="citation">[0526锦州EIS终, 第17页；eis兰州调研结果汇报5.27, 第14页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"流量焦虑"转向"渠道重构"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>资源配置方向</td>
+                            <td>
+                                双轨并行：建议"加强与药店终端合作，提高到店顾客流量"，同时"需注重线上、O2O渠道的经营"
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                明确倾斜：建议新增资源>60%导向O2O，线下门店转型为"前置履约+品牌触点+专业咨询"的角色定位
+                                <div class="citation">[0526锦州EIS终, 第17-19页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"均衡布局"转向"线上优先"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>线下门店功能定位</td>
+                            <td>
+                                核心销售场所：强调店员推荐的重要性，推荐成功率高达87%
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                前置仓与服务节点：线下门店重定义为"前置履约+品牌触点+专业咨询"，承接O2O的28分钟送达履约
+                                <div class="citation">[0526锦州EIS终, 第16-17页；0527_苏州EIS调研汇报, 第7页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"交易主场"转向"履约支点"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>店员角色认知</td>
+                            <td>
+                                价值核心："疫情执行之下，店员的作用变得愈发重要"，需加强店员合作与培训
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                执行困境：店员推荐逻辑被"定级/毛利/任务"塑形，拦截与搭售成功率受限，联合用药成功率仅16%
+                                <div class="citation">[EIS-南充, 第12页；EIS厦门分队汇报5.27, 第6页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"强化推荐"转向"诊断执行偏差"</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-year">2025年关键数据</div>
+                        <h4>O2O成为主交易场</h4>
+                        <p>锦州/兰州样本：线下到店70-80人/日，O2O订单约300单/日。消费者选择线上的动因：便利/隐私/价格/使用习惯。</p>
+                        <div class="citation">[0526锦州EIS终, 第17-18页；eis兰州调研结果汇报5.27, 第17页]</div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-year">战略启示</div>
+                        <h4>资源配置建议</h4>
+                        <p>新增资源>60%导向O2O；线下聚焦"症状教育+专业咨询+医保承接"；以急用品类（感冒/皮肤/胃肠）为O2O主攻方向。</p>
+                        <div class="citation">[0526锦州EIS终, 第19页；0527_苏州EIS调研汇报, 第16页]</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Regional Priority -->
+        <section id="region" class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div class="section-title-group">
+                    <h2>区域优先级对比分析</h2>
+                    <p>市场布局策略演变：从"均衡覆盖"到"战略聚焦"</p>
+                </div>
+            </div>
+            <div class="section-body">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>分析维度</th>
+                            <th>2022年（益普索研究）</th>
+                            <th>2025年（七城EIS调研）</th>
+                            <th>关键变化</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>覆盖范围与选址逻辑</td>
+                            <td>
+                                多城市均衡覆盖：成都、南京、南宁、西安4个城市，每城市3家药店，共12家，旨在覆盖东西南北四大区域获取全国性趋势
+                                <div class="citation">[益普索报告, 第4-5页]</div>
+                            </td>
+                            <td>
+                                战略城市深度聚焦：7个城市按不同战略目标分类——苏州（高价值连锁市场）、锦州/兰州（O2O主战场）、厦门（战略品种培育）、青岛（关联用药方法论）、南充/洛阳（执行偏差诊断）
+                                <div class="citation">[0527_苏州EIS调研汇报, 第2页；0526锦州EIS终, 第6页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"区域代表性采样"转向"战略场景分类深耕"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>市场选择标准</td>
+                            <td>
+                                基于地理分布的均衡性：选取华东（南京）、华南（南宁）、西南（成都）、西北（西安）四大区域代表城市
+                                <div class="citation">[益普索报告, 第4页]</div>
+                            </td>
+                            <td>
+                                基于战略价值的差异化定位：苏州GDP全国第六（2.67万亿元）、人均可支配收入77524元（全国41314元）、连锁占比84%，被定位为"高价值连锁样板市场"
+                                <div class="citation">[0527_苏州EIS调研汇报, 第3页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"均衡覆盖"转向"锁定高回报市场"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>渠道结构视角</td>
+                            <td>
+                                按城市分组统计样本量（成都216份、南京293份、南宁307份、西安214份），未区分连锁/单店/KA层级
+                                <div class="citation">[益普索报告, 第5页]</div>
+                            </td>
+                            <td>
+                                建立NKA/LKA分层体系：江苏NKA增长8%、LKA下滑31%；区分连锁型（苏州84%）、商控型（盐城41%、镇江43%）、中小型城市（连云港中小占比80%）
+                                <div class="citation">[0527_苏州EIS调研汇报, 第7-8页, 第12页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"城市维度"转向"渠道业态维度"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>区域差异化判断</td>
+                            <td>
+                                隐性差异判断：发现西安微信支付比例最高（59%）、南京医保卡+支付宝双高，建议"根据支付方式进行相应的营销活动"
+                                <div class="citation">[益普索报告, 第22页]</div>
+                            </td>
+                            <td>
+                                显性分类施策：明确"连锁主导型城市"以KA总部协同为主；"商控型城市"以返利与集采为主；"O2O主战场"以线上资源倾斜为主
+                                <div class="citation">[0527_苏州EIS调研汇报, 第12页；eis兰州调研结果汇报5.27, 第17页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"发现差异"转向"差异化分类施策"</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px; color: var(--primary);">2025年区域优先级矩阵</h3>
+                <table class="kpi-table">
+                    <thead>
+                        <tr>
+                            <th>优先级</th>
+                            <th>城市/区域</th>
+                            <th>战略定位</th>
+                            <th>资源配置方向</th>
+                            <th>来源</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="kpi-category">第一优先</td>
+                            <td>苏州（江苏）</td>
+                            <td>高价值连锁样板</td>
+                            <td>KA深耕、OTX增长、NKA放大</td>
+                            <td>[0527_苏州EIS调研汇报, 第3页、第10页]</td>
+                        </tr>
+                        <tr>
+                            <td class="kpi-category">第二优先</td>
+                            <td>锦州、兰州</td>
+                            <td>O2O主战场</td>
+                            <td>线上资源倾斜、线下转型前置仓</td>
+                            <td>[0526锦州EIS终, 第17-19页；eis兰州调研结果汇报5.27, 第17页]</td>
+                        </tr>
+                        <tr>
+                            <td class="kpi-category">第三优先</td>
+                            <td>厦门（福建）</td>
+                            <td>战略品种培育</td>
+                            <td>小柴胡标杆客户打造</td>
+                            <td>[EIS厦门分队汇报5.27, 第12-13页]</td>
+                        </tr>
+                        <tr>
+                            <td class="kpi-category">第四优先</td>
+                            <td>青岛、南充、洛阳</td>
+                            <td>方法论验证与执行诊断</td>
+                            <td>关联用药模板、激励机制重构</td>
+                            <td>[青岛eis, 第13-14页；EIS-南充, 第11页]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Product Strategy -->
+        <section id="product" class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div class="section-title-group">
+                    <h2>产品策略对比分析</h2>
+                    <p>产品布局演变：从"品牌驱动"到"症状对症驱动"</p>
+                </div>
+            </div>
+            <div class="section-body">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>分析维度</th>
+                            <th>2022年（益普索研究）</th>
+                            <th>2025年（七城EIS调研）</th>
+                            <th>关键变化</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>品类增长格局</td>
+                            <td>
+                                四大品类整体稳健：客单价提升52%（57→87元），备药比例增加+11%，店员推荐驱动42%成交
+                                <div class="citation">[益普索报告, 第55-59页]</div>
+                            </td>
+                            <td>
+                                结构性分化加剧：成人感冒下滑-9.23%，胃肠下滑-4.07%，皮肤用药逆势增长+0.82%（皮炎湿疹子类+8.97%），OTX儿科感冒大幅下滑-32.66%，但肝胆子类（脂肪肝+39.13%）快速增长
+                                <div class="citation">[0527_苏州EIS调研汇报, 第4页、第9页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"整体稳健增长"转向"新老动能切换"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>战略品类方向</td>
+                            <td>
+                                四大传统品类深耕：成人感冒药（强品牌认知）、小儿感冒药（妈妈决策主导）、皮肤药（止痒核心需求）、胃药（品牌倾向性高）
+                                <div class="citation">[益普索报告, 第56-59页]</div>
+                            </td>
+                            <td>
+                                新动能品类崛起：胃药类23-24年增长+170%、25年1-3月继续高增+224%；维生素D新进场爆发增长（25年1-3月232.1万）；肝胆精细子类加速渗透
+                                <div class="citation">[0527_苏州EIS调研汇报, 第11页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"传统品类深耕"转向"结构性机会捕捉"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>成交驱动逻辑</td>
+                            <td>
+                                品牌拉力+店员推荐：成人感冒药品牌认知强（"感冒吃管用"），皮肤药42%由店员推荐驱动，店员推荐成功率高达87%
+                                <div class="citation">[益普索报告, 第55页、第58页]</div>
+                            </td>
+                            <td>
+                                症状主导+对症方案："症状"是消费者表达需求的首要入口（苏州52%），店员话术中"询问/解释症状"占比最高（苏州64.8%，厦门32.9%）；联合用药成为客单拉升关键（维D成交75%依赖联合用药）
+                                <div class="citation">[0527_苏州EIS调研汇报, 第14页；EIS厦门分队汇报5.27, 第10页、第19页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"品牌驱动"转向"症状对症驱动"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>店员推荐执行</td>
+                            <td>
+                                价值肯定：店员推荐成功率87%（+5%），推荐率47%（基本无变化），店员作用"愈发重要"
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                执行偏差诊断：首推目录与店员实际推荐不一致率高达82.05%；店员推荐受"定级-提成-任务-效期"四重利益驱动，从"专业导向"转向"生存导向"
+                                <div class="citation">[EIS-南充, 第11页；EIS调研最终版 洛阳组, 第14页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"强调推荐价值"转向"诊断执行偏差"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>产品包装与陈列</td>
+                            <td>
+                                基础认知：红皮（68%）>绿皮（55%）>金皮（42%）认知度差异，建议加强产品利益点宣传
+                                <div class="citation">[益普索报告, 第58页]</div>
+                            </td>
+                            <td>
+                                视觉竞争升级：贴牌模仿头部品牌包装、系列化陈列占据第一眼位置，小包装信息被遮挡；提出"超级视觉符号+突破品类颜色惯性+1秒信息可读"三原则
+                                <div class="citation">[0526锦州EIS终, 第22-24页；EIS调研最终版 洛阳组, 第21页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"认知度提升"转向"货架视觉竞争"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>联合用药策略</td>
+                            <td>
+                                机会识别：成人感冒药存在同品类内联合推荐和跨品类（抗感染药、口咽药）联合推荐机会
+                                <div class="citation">[益普索报告, 第56页]</div>
+                            </td>
+                            <td>
+                                系统化落地：维D成交联合用药占比达50%（锌/钙特），联合感冒/免疫类33%、骨关节17%；厦门联合用药成功率仅16%，需"症状+对策+组合"场景化话术支撑
+                                <div class="citation">[0527_苏州EIS调研汇报, 第19页；EIS厦门分队汇报5.27, 第6页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"机会识别"转向"系统化执行"</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin-top: 32px; margin-bottom: 16px; color: var(--primary);">2025年品类资源再配置建议</h3>
+                <table class="kpi-table">
+                    <thead>
+                        <tr>
+                            <th>品类定位</th>
+                            <th>品类名称</th>
+                            <th>策略方向</th>
+                            <th>来源</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="kpi-category">结构性收缩</td>
+                            <td>成人感冒（-9.23%）</td>
+                            <td>顺势压降，腾出资源，维持存量基本盘</td>
+                            <td>[0527_苏州EIS调研汇报, 第4页]</td>
+                        </tr>
+                        <tr>
+                            <td class="kpi-category">结构性增长</td>
+                            <td>皮肤用药（+0.82%，皮炎湿疹+8.97%）</td>
+                            <td>优先争取KA陈列与定级资源，做"短链路高转化"</td>
+                            <td>[0527_苏州EIS调研汇报, 第4页、第7页]</td>
+                        </tr>
+                        <tr>
+                            <td class="kpi-category">爆发式增长</td>
+                            <td>胃药/OTX（+224%）</td>
+                            <td>高资源密度配置，在"苏沪"等能力型区域加码</td>
+                            <td>[0527_苏州EIS调研汇报, 第10-11页]</td>
+                        </tr>
+                        <tr>
+                            <td class="kpi-category">战略培育</td>
+                            <td>维D/小柴胡</td>
+                            <td>"愿意卖（激励）-会卖（培训）-增量（慢病关联）"三路径闭环</td>
+                            <td>[0527_苏州EIS调研汇报, 第19页；EIS厦门分队汇报5.27, 第12-14页]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: KPI -->
+        <section id="kpi" class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div class="section-title-group">
+                    <h2>KPI设定对比分析</h2>
+                    <p>绩效指标体系演变：从"结果指标"到"过程诊断"</p>
+                </div>
+            </div>
+            <div class="section-body">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>分析维度</th>
+                            <th>2022年（益普索研究）</th>
+                            <th>2025年（七城EIS调研）</th>
+                            <th>关键变化</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>客流指标</td>
+                            <td>
+                                到店顾客数量下降约1/3（日均36→24人），平均店内停留时间5.79分钟（+1.61分钟）
+                                <div class="citation">[益普索报告, 第8页、第13页]</div>
+                            </td>
+                            <td>
+                                锦州样点到店70-80人/日，但O2O订单约300单/日；消费者行为链路拆解为"进店-咨询-拦截/搭售-支付-医保"全链条
+                                <div class="citation">[0526锦州EIS终, 第17页；EIS-南充, 第7页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"客流量监测"转向"全渠道流量池管理"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>成交指标</td>
+                            <td>
+                                客单价86.86元（+29.71元），购买数量2.34盒（+0.24盒），成功购买率87%
+                                <div class="citation">[益普索报告, 第13页]</div>
+                            </td>
+                            <td>
+                                成交率76.2%（南充样本），点名品牌成交率88.2%最高，描述症状场景推荐成功率88%
+                                <div class="citation">[EIS-南充, 第7页；EIS厦门分队汇报5.27, 第6页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"客单价提升"转向"场景化转化率分析"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>推荐指标</td>
+                            <td>
+                                店员推荐率47%（基本无变化），推荐成功率87%（+5%）
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                首推目录与店员实际推荐不一致率82.05%（南充），点购拦截成功率仅29%（兰州），联合用药成功率仅16%（厦门）
+                                <div class="citation">[EIS-南充, 第11页；eis兰州调研结果汇报5.27, 第18页；EIS厦门分队汇报5.27, 第6页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">从"推荐成功率"转向"推荐执行一致性+场景转化率"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>渠道指标</td>
+                            <td>
+                                未设置渠道分层KPI，仅按城市分组统计支付方式差异
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                NKA增长8%、LKA下滑31%；单产成为核心指标（高济6474元vs海王星辰4911元）；KA月单产、布货率成为考核要素
+                                <div class="citation">[0527_苏州EIS调研汇报, 第8页；EIS厦门分队汇报5.27, 第13页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">新增"渠道分层业绩指标+单产考核"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>O2O指标</td>
+                            <td>
+                                建议"注重线上、O2O渠道的经营"，但未设具体KPI
+                                <div class="citation">[益普索报告, 第55页]</div>
+                            </td>
+                            <td>
+                                O2O订单GMV占比、履约时效（≤30分钟）、O2O渗透率、平台品类增长率成为核心KPI
+                                <div class="citation">[0526锦州EIS终, 第17-19页；eis兰州调研结果汇报5.27, 第17页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">新增"O2O全链路KPI体系"</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>执行稽核指标</td>
+                            <td>
+                                未设置执行稽核KPI
+                                <div class="citation">[益普索报告]</div>
+                            </td>
+                            <td>
+                                神秘客检核通过率≥90%、首推一致性、陈列达标率、不合规推荐案例下降率成为考核指标
+                                <div class="citation">[0526锦州EIS终, 第21页；EIS-南充, 第18页]</div>
+                            </td>
+                            <td>
+                                <span class="change-tag">新增"执行稽核与合规KPI"</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>华润三九药店终端策略演变分析报告 | 2022年益普索研究 vs 2025年七城EIS调研</p>
+        <p style="margin-top: 8px; opacity: 0.6;">报告生成日期：2025年12月 | 仅供内部决策参考</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                // Update active state
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            const sections = ['o2o', 'region', 'product', 'kpi'];
+            let current = '';
+            
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        current = section;
+                    }
+                }
+            });
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('href') === '#' + current) {
+                    tab.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
